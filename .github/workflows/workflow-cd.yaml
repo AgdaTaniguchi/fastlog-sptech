@@ -40,7 +40,7 @@ jobs:
             docker build -t react-frontend:latest .
 
             # Deploy using Docker Swarm
-            docker service create --name frontend1 --replicas 1 -p 80:80 react-frontend:latest
-            docker service create --name frontend2 --replicas 1 -p 80:80 react-frontend:latest
-            docker service create --name frontend3 --replicas 1 -p 80:80 react-frontend:latest
+            docker service create --name frontend1 --replicas 1 -p 8081:80 react-frontend:latest
+            docker service create --name frontend2 --replicas 1 -p 8082:80 react-frontend:latest
+            docker service create --name frontend3 --replicas 1 -p 8083:80 react-frontend:latest 
           EOF
