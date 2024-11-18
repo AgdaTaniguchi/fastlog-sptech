@@ -30,8 +30,8 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
             # Navigate to the target directory
-            cd /fastlog-sptech || git clone https://github.com/AgdaTaniguchi/fastlog-sptech.git /fastlog-sptech
-            cd /fastlog-sptech  # Make sure we are in the project directory
+            cd //home/ubuntu/fastlog-sptech || git clone https://github.com/AgdaTaniguchi/fastlog-sptech.git /home/ubuntu/fastlog-sptech
+            cd //home/ubuntu/fastlog-sptech  # Make sure we are in the project directory
 
             # Pull the latest changes
             git pull origin main
