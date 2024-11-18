@@ -27,7 +27,7 @@ jobs:
 
       - name: Run tests
         env:
-          CI: false  # Set CI to false to prevent treating warnings as errors
+          CI: false  
         run: npm test -- --watchAll=false
 
       - name: Build project
