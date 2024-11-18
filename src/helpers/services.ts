@@ -1,0 +1,1 @@
+export const backendUrl = `http://${process.env.REACT_APP_BACKEND_URL}`;

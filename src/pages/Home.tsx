@@ -1,6 +1,7 @@
 import { HomeImage } from "../assets";
 import { ChangeEvent, KeyboardEvent, useEffect, useRef, useState } from "react";
 import Delivery from "./Delivery";
+import { backendUrl } from "../helpers/services";
 
 export default function Home() {
     const [deliveryId, setDeliveryId] = useState("");
@@ -12,7 +13,7 @@ export default function Home() {
         try {
             setDeliveryInfo(null);
             setError("");
-            const resp = await fetch(`http://localhost:8501/status?id=${deliveryId}`);
+            const resp = await fetch(`${backendUrl}/status?id=${deliveryId}`);
             
             if(resp.status === 404) {
                 setError("Número de rastreamento não encontrado.");
