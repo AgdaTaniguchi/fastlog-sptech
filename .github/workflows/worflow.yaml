@@ -26,6 +26,8 @@ jobs:
         run: npm install
 
       - name: Run tests
+        env:
+          CI: false  
         run: npm test -- --watchAll=false
 
       - name: Build project
