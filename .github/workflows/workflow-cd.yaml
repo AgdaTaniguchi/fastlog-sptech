@@ -32,8 +32,6 @@ jobs:
             # Pull the latest changes
             git pull origin main
 
-            npm run build
-
             # Build Docker image
             docker build -t react-frontend:latest .
 
