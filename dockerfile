@@ -1,5 +1,5 @@
 # Use a imagem base do Nginx
-FROM nginx:latest
+FROM node:latest
 
 # Copie os arquivos estáticos para o diretório padrão do Nginx
 COPY build/ /usr/share/nginx/html
