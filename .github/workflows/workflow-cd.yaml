@@ -19,15 +19,11 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.EC2_SSH_KEY }}
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-
       - name: Deploy to EC2 using Docker Swarm
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
             # Navigate to the target directory
-            cd //home/ubuntu/fastlog-sptech || git clone https://github.com/AgdaTaniguchi/fastlog-sptech.git /home/ubuntu/fastlog-sptech
-            cd //home/ubuntu/fastlog-sptech  # Make sure we are in the project directory
+            cd /home/ubuntu/fastlog-sptech
 
             # Pull the latest changes
             git pull origin main
@@ -35,10 +31,9 @@ jobs:
             # Build Docker image
             docker build -t react-frontend:latest .
 
-            docker service rm $(docker service ls -q)
+            docker service ls -q | xargs -r docker service rm
 
             # Deploy using Docker Swarm
-            docker service create --name frontend1 --replicas 1 -p 8081:80 react-frontend:latest
-            docker service create --name frontend2 --replicas 1 -p 8082:80 react-frontend:latest
-            docker service create --name frontend3 --replicas 1 -p 8083:80 react-frontend:latest 
+            docker service create --name frontend --replicas 3 -p 80:80 react-frontend:latest
+
           EOF

@@ -1,15 +1,29 @@
-# Use a imagem base do Nginx
-FROM node:latest
+# Etapa 1: Build
+FROM node:latest AS build
 
-# Copie os arquivos estáticos para o diretório padrão do Nginx
+# Definir diretório de trabalho no container
+WORKDIR /app
+
+# Copiar os arquivos de dependências para o container
+COPY package*.json ./
+
+# Instalar dependências
+RUN npm install
+
+# Copiar todo o código do projeto para o container
 COPY . .
 
-RUN npm i
+# Construir o aplicativo para produção
 RUN npm run build
-RUN npm install -g server
 
-# Exponha a porta 80 para acesso
+# Etapa 2: Servir os arquivos estáticos
+FROM nginx:alpine
+
+# Copiar os arquivos buildados para o diretório padrão do Nginx
+COPY --from=build /app/build /usr/share/nginx/html
+
+# Expor a porta padrão do Nginx
 EXPOSE 80
 
 # Comando padrão para iniciar o Nginx
-CMD ["serve", "-s", "build"]
+CMD ["nginx", "-g", "daemon off;"]
