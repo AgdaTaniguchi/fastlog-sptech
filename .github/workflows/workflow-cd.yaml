@@ -35,5 +35,4 @@ jobs:
 
             # Deploy using Docker Swarm
             docker service create --name frontend --replicas 3 -p 80:80 react-frontend:latest
-
           EOF
