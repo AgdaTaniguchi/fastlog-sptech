@@ -31,7 +31,7 @@ jobs:
             # Build Docker image
             docker build -t react-frontend:latest .
 
-            docker service ls -q | xargs -r docker service rm
+            docker service ls --format '{{.Name}}' | grep '^frontend' | xargs -r docker service rm
 
             docker network create --driver overlay fastlog || true
 
