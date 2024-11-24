@@ -12,7 +12,7 @@ export default function Home() {
         try {
             setDeliveryInfo(null);
             setError("");
-            const resp = await fetch(`${window.location.origin}/status?id=${deliveryId}`);
+            const resp = await fetch(`${window.location.origin}:8501/status?id=${deliveryId}`);
             
             if(resp.status === 404) {
                 setError("Número de rastreamento não encontrado.");
